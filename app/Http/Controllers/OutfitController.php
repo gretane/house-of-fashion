@@ -47,8 +47,7 @@ class OutfitController extends Controller
         $outfit->about = $request->outfit_about;
         $outfit->designer_id = $request->designer_id;
         $outfit->save();
-        return redirect()->route('outfit.index');
-       
+        return redirect()->route('outfit.index')->with('success_message', 'New outfit successfully added.');       
     }
 
     /**
@@ -89,7 +88,7 @@ class OutfitController extends Controller
         $outfit->about = $request->outfit_about;
         $outfit->designer_id = $request->designer_id;
         $outfit->save();
-        return redirect()->route('outfit.index');       
+        return redirect()->route('outfit.index')->with('success_message', 'Successfully updated.');    
     }
 
     /**
@@ -101,6 +100,6 @@ class OutfitController extends Controller
     public function destroy(Outfit $outfit)
     {
         $outfit->delete();
-        return redirect()->route('outfit.index');
+        return redirect()->route('outfit.index')->with('success_message', 'Deletion succeeded.');  
     }
 }

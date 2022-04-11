@@ -41,7 +41,7 @@ class DesignerController extends Controller
         $designer->name = $request->designer_name;
         $designer->surname = $request->designer_surname;
         $designer->save();
-        return redirect()->route('designer.index');
+        return redirect()->route('designer.index')->with('success_message', 'New designer successfully added.');
     }
 
     /**
@@ -78,7 +78,7 @@ class DesignerController extends Controller
         $designer->name = $request->designer_name;
         $designer->surname = $request->designer_surname;
         $designer->save();
-        return redirect()->route('designer.index');
+        return redirect()->route('designer.index')->with('success_message', 'Successfully updated.');
     }
 
     /**
@@ -90,10 +90,10 @@ class DesignerController extends Controller
     public function destroy(Designer $designer)
     {
         if($designer->designerOutfits->count()){
-            return 'Deletion is not available. Designer has at least one outfit.';
+            return redirect()->route('designer.index')->with('info_message', 'Deletion is not available. Designer has at least one outfit.');
         }
         $designer->delete();
-        return redirect()->route('designer.index');
+        return redirect()->route('designer.index')->with('success_message', 'Deletion succeeded.');
            
     }
 }
