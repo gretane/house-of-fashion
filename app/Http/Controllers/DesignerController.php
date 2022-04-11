@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Designer;
 use App\Http\Requests\StoreDesignerRequest;
 use App\Http\Requests\UpdateDesignerRequest;
+use Validator;
 
 class DesignerController extends Controller
 {
@@ -37,6 +38,17 @@ class DesignerController extends Controller
      */
     public function store(StoreDesignerRequest $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+        'designer_name' => ['required', 'min:2', 'max:64'],
+        'designer_surname' => ['required', 'min:2', 'max:64'],
+        ]);
+
+        if ($validator->fails()) {
+        $request->flash();
+        return redirect()->back()->withErrors($validator);
+        }
+
         $designer = new Designer;
         $designer->name = $request->designer_name;
         $designer->surname = $request->designer_surname;
@@ -75,6 +87,17 @@ class DesignerController extends Controller
      */
     public function update(UpdateDesignerRequest $request, Designer $designer)
     {
+        $validator = Validator::make($request->all(),
+        [
+        'designer_name' => ['required', 'min:2', 'max:64'],
+        'designer_surname' => ['required', 'min:2', 'max:64'],
+        ]);
+
+        if ($validator->fails()) {
+        $request->flash();
+        return redirect()->back()->withErrors($validator);
+        }
+
         $designer->name = $request->designer_name;
         $designer->surname = $request->designer_surname;
         $designer->save();

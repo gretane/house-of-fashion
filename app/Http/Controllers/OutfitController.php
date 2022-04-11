@@ -6,6 +6,7 @@ use App\Models\Outfit;
 use App\Http\Requests\StoreOutfitRequest;
 use App\Http\Requests\UpdateOutfitRequest;
 use App\Models\Designer;
+use Validator;
 
 
 class OutfitController extends Controller
@@ -40,6 +41,21 @@ class OutfitController extends Controller
      */
     public function store(StoreOutfitRequest $request)
     {
+        $validator = Validator::make($request->all(),
+        [
+        'outfit_type' => ['required', 'min:2', 'max:50'],
+        'outfit_color' => ['required', 'min:2', 'max:20'],
+        'outfit_size' => ['required', 'integer', 'min:2', 'max:50'],
+        'outfit_about' => ['required'],
+        'designer_id' => ['required', 'integer', 'min:1'],
+        ]);
+
+        if ($validator->fails()) {
+        $request->flash();
+        return redirect()->back()->withErrors($validator);
+        }
+
+
         $outfit = new Outfit;
         $outfit->type = $request->outfit_type;
         $outfit->color = $request->outfit_color;
@@ -82,6 +98,21 @@ class OutfitController extends Controller
      */
     public function update(UpdateOutfitRequest $request, Outfit $outfit)
     {
+        $validator = Validator::make($request->all(),
+        [
+        'outfit_type' => ['required', 'min:2', 'max:50'],
+        'outfit_color' => ['required', 'min:2', 'max:20'],
+        'outfit_size' => ['required', 'integer', 'min:2', 'max:50'],
+        'outfit_about' => ['required'],
+        'designer_id' => ['required', 'integer', 'min:1'],
+        ]);
+
+        if ($validator->fails()) {
+        $request->flash();
+        return redirect()->back()->withErrors($validator);
+        }
+
+
         $outfit->type = $request->outfit_type;
         $outfit->color = $request->outfit_color;
         $outfit->size = $request->outfit_size;
