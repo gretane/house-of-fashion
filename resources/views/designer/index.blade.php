@@ -8,12 +8,22 @@
                     <div class="card-body">
                         <ol>
                             @foreach ($designers as $designer)
-                                <li> 
-                                    <a href="{{route('designer.edit', $designer)}}">{{$designer->name}} {{$designer->surname}}</a> 
-                                    <form method="POST" action="{{route('designer.destroy', $designer)}}">
-                                        @csrf
-                                        <button type="submit">Delete</button>
-                                    </form>
+                                <li class="designer-index-list"> 
+                                    <div class="designer-index-info">
+                                        <b>{{$designer->name}} {{$designer->surname}}</b>
+                                        @if ($designer->designerOutfits->count())
+                                            <p> <small> Works on {{$designer->designerOutfits->count()}} outfit(s). </small> </p>
+                                        @else 
+                                        <p> <small> Currently there are no outfits. </small> </p>
+                                        @endif
+                                    </div>
+                                    <div class="designer-index-btn">
+                                        <a class="btn btn-outline-primary" href="{{route('designer.edit', $designer)}}"> Edit </a> 
+                                        <form method="POST" action="{{route('designer.destroy', $designer)}}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </li>
                             @endforeach
                         </ol>
