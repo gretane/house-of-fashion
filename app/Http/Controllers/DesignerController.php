@@ -32,13 +32,19 @@ class DesignerController extends Controller
             if('by_surname_za' == $request->sort){
                 $designers = Designer::orderBy('surname', 'desc')->get(); 
             }
+        } else if ($request->search && 'all' == $request->search) {
+            $designers = Designer::where('name', 'like', "%{$request->srch}%")->
+            orWhere('surname', 'like', "%{$request->srch}%")->get();
         } else {
 
             $designers = Designer::all();
         }
         // $designers = $designers->sortBy('surname');  //laravel methods; reversed sortByDesc('surname');
        
-        return view('designer.index', ['designers' => $designers]);
+        return view('designer.index', [
+            'designers' => $designers,
+            'srch' => $request->srch ?? ''
+        ]);
     }
 
     /**
