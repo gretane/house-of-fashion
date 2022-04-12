@@ -16,7 +16,8 @@ class DesignerController extends Controller
      */
     public function index()
     {
-        $designers = Designer::all();
+        //$designers = Designer::all();
+        $designers = Designer::orderBy('surname')->get(); //sort by surname; orderBy('surname', 'desc') to sort z to a;
         return view('designer.index', ['designers' => $designers]);
     }
 
