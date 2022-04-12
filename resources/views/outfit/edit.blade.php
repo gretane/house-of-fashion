@@ -11,9 +11,9 @@
                             Color: <input type="text" name="outfit_color" value="{{old('outfit_color', $outfit->color)}}">
                             Size: <input type="text" name="outfit_size" value="{{old('outfit_size', $outfit->size)}}">
                             About: <textarea name="outfit_about">{{old('outfit_about', $outfit->about)}}</textarea>
-                            <select name="designer_id" value="{{old('designer_id', $outfit->designer_id)}}">
+                            <select name="designer_id">
                                 @foreach ($designers as $designer)
-                                    <option value="{{$designer->id}}" @if($designer->id == $outfit->designer_id) selected @endif>
+                                    <option value="{{$designer->id}}" @if(old('designer_id', $outfit->designer_id) == $outfit->designer_id) selected @endif>
                                         {{$designer->name}} {{$designer->surname}}
                                     </option>
                                 @endforeach
