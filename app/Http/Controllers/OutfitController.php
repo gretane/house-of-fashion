@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Outfit;
 use App\Http\Requests\StoreOutfitRequest;
 use App\Http\Requests\UpdateOutfitRequest;
+use App\Http\Requests\IndexOutfitRequest;
 use App\Models\Designer;
 use Validator;
 
@@ -16,10 +17,21 @@ class OutfitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IndexOutfitRequest $request)
     {
-        $outfits = Outfit::all();
-        return view('outfit.index', ['outfits' => $outfits]);
+        $designers = Designer::orderBy('surname')->get();
+        
+        if($request->filter && 'designer' == $request->filter) {
+            $outfits = Outfit::where('designer_id', $request->designer_id)->get();
+        } else {
+            $outfits = Outfit::all();
+        }
+
+        return view('outfit.index', [
+            'outfits' => $outfits,
+            'designers' => $designers,
+            'designer_id' => $request->designer_id ?? '0'
+    ]);
     }
 
     /**
@@ -29,8 +41,8 @@ class OutfitController extends Controller
      */
     public function create()
     {
-        $designers = Designer::all();
-        // $designers = Designer::orderBy('surname')->get();
+        // $designers = Designer::all();
+        $designers = Designer::orderBy('surname')->get();
         return view('outfit.create', ['designers' => $designers]);
     }
 

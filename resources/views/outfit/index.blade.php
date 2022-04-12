@@ -4,7 +4,22 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">All outfits</div>
+                    <div class="card-header">
+                       <h4>Outfits</h4>
+                        <form action="{{route('outfit.index')}}" method="GET">
+                            <fieldset>
+                                <select name="designer_id"> 
+                                    <option value="0" disabled selected>Select designer</option>
+                                    <option disabled>-----</option>
+                                    @foreach ($designers as $designer)
+                                        <option value="{{$designer->id}}" @if ($designer_id == $designer->id) selected @endif>{{$designer->name}} {{$designer->surname}} </option>
+                                    @endforeach
+                                </select>
+                                    <button type="submit" name="filter" class="btn btn-outline-primary" value="designer"> Filter </button>
+                            </fieldset>
+                        </form>
+                        <a href="{{route('outfit.index')}}" class="btn btn-outline-primary">Reset</a>
+                    </div>
                     <div class="card-body">
                         <ol>
                             @foreach ($outfits as $outfit)
