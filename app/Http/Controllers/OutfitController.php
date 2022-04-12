@@ -30,6 +30,7 @@ class OutfitController extends Controller
     public function create()
     {
         $designers = Designer::all();
+        // $designers = Designer::orderBy('surname')->get();
         return view('outfit.create', ['designers' => $designers]);
     }
 
@@ -86,6 +87,7 @@ class OutfitController extends Controller
     public function edit(Outfit $outfit)
     {
         $designers = Designer::all();
+        // $designers = Designer::orderBy('surname')->get();
         return view('outfit.edit', ['outfit' => $outfit, 'designers' => $designers]);
     }
 

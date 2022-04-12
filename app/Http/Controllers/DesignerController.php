@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Designer;
 use App\Http\Requests\StoreDesignerRequest;
 use App\Http\Requests\UpdateDesignerRequest;
+use App\Http\Requests\IndexDesignerRequest;
 use Validator;
 
 class DesignerController extends Controller
@@ -14,10 +15,29 @@ class DesignerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IndexDesignerRequest $request)
     {
-        //$designers = Designer::all();
-        $designers = Designer::orderBy('surname')->get(); //sort by surname; orderBy('surname', 'desc') to sort z to a;
+        if($request->sort) {
+
+            if('by_name_az' == $request->sort){
+                $designers = Designer::orderBy('name')->get(); 
+            }
+            if('by_name_za' == $request->sort){
+                $designers = Designer::orderBy('name', 'desc')->get(); 
+            }
+
+            if('by_surname_az' == $request->sort){
+                $designers = Designer::orderBy('surname')->get(); //sort by surname when taking from DB; orderBy('surname', 'desc') to sort z to a; faster way;
+            }
+            if('by_surname_za' == $request->sort){
+                $designers = Designer::orderBy('surname', 'desc')->get(); 
+            }
+        } else {
+
+            $designers = Designer::all();
+        }
+        // $designers = $designers->sortBy('surname');  //laravel methods; reversed sortByDesc('surname');
+       
         return view('designer.index', ['designers' => $designers]);
     }
 

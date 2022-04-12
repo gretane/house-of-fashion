@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-// use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 use Faker\Factory as Faker;
 
 class DatabaseSeeder extends Seeder
@@ -32,16 +32,13 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // $outfits = ['Blouse', 'Dress', 'Jeans', 'Pants', 'Shorts', 'Sweater', 'Jacket', 'Skirt', 'Shoes', 'Accessory', 'Suit'];
-
-        // foreach(range(1, 150) as $_) {
-        //     $randOutfit = $outfits[rand(0, count($outfits)-1)];
+        // foreach(range(1, 150) as $a) {
 
         //     DB::table('outfits')->insert([
-        //         'type' => $randOutfit,
-        //         'color' => $faker->safeColorName(),
+        //         'type' => Str::random(10),
+        //         'color' => Str::random(10),
         //         'size' => range(2, 50),
-        //         'about' => $faker->paragraph(2),
+        //         'about' => Str::random(30),
         //         'designer_id' => rand(1, $designersCount),
         //     ]);
         // }
