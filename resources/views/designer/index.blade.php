@@ -22,7 +22,7 @@
                             <form action="{{route('designer.index')}}" method="GET">
                                 <fieldset>
                                 <legend><h5>Search:</h5></legend>
-                                    <input type="text" name="srch" placeholder="designer name or surname" value="{{$srch}}">
+                                    <input type="text" name="srch" placeholder="search designers" value="{{$srch}}">
                                     <button type="submit" name="search" class="btn btn-outline-primary" value="all"> Search </button>
                                 </fieldset>
                             </form>

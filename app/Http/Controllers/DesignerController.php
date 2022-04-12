@@ -33,8 +33,25 @@ class DesignerController extends Controller
                 $designers = Designer::orderBy('surname', 'desc')->get(); 
             }
         } else if ($request->search && 'all' == $request->search) {
-            $designers = Designer::where('name', 'like', "%{$request->srch}%")->
-            orWhere('surname', 'like', "%{$request->srch}%")->get();
+            
+            $words = explode(' ', $request->srch);
+
+            if(count($words) == 1) {
+                $designers = Designer::where('name', 'like', '%' . $request->srch . '%')
+                ->orWhere('surname', 'like', '%' . $request->srch . '%')
+                ->get();
+            } else {
+            
+                $designers = Designer::where(function($query) use ($words) {
+                $query->orWhere('name', 'like', '%' . $words[0] . '%')
+                ->orWhere('surname', 'like', '%' . $words[0] . '%');
+                })
+                ->where(function($query) use ($words) {
+                    $query->orWhere('name', 'like', '%' . $words[1] . '%')
+                    ->orWhere('surname', 'like', '%' . $words[1] . '%');
+                })
+                ->get();
+            }
         } else {
 
             $designers = Designer::all();
