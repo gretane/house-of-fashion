@@ -12,6 +12,7 @@ use Validator;
 
 class OutfitController extends Controller
 {
+    const RESULTS_PER_PAGE = 9;
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +23,9 @@ class OutfitController extends Controller
         $designers = Designer::orderBy('surname')->get();
         
         if($request->filter && 'designer' == $request->filter) {
-            $outfits = Outfit::where('designer_id', $request->designer_id)->get();
+            $outfits = Outfit::where('designer_id', $request->designer_id)->paginate(self::RESULTS_PER_PAGE)->withQueryString();
         } else {
-            $outfits = Outfit::all();
+            $outfits = Outfit::paginate(self::RESULTS_PER_PAGE)->withQueryString();
         }
 
         return view('outfit.index', [

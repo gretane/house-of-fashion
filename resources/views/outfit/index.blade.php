@@ -35,6 +35,7 @@
                                 </li>
                             @endforeach
                         </ol>
+                        {{$outfits->links()}}
                     </div>
                 </div>
             </div>
