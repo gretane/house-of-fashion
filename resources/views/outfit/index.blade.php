@@ -18,14 +18,15 @@
                                     <button type="submit" name="filter" class="btn btn-outline-primary" value="designer"> Filter </button>
                             </fieldset>
                         </form>
-                        <a href="{{route('outfit.index')}}" class="btn btn-outline-primary">Reset</a>
+                        <a href="{{route('outfit.index')}}" class="btn btn-outline-dark">Reset</a>
                     </div>
                     <div class="card-body">
-                        <ol>
+                        <ul>
                             @foreach ($outfits as $outfit)
                                 <li>
                                     <div>
                                         <p>{{$outfit->type}} by {{$outfit->outfitDesigner->name}} {{$outfit->outfitDesigner->surname}}</p>
+                                        <a href="{{route('outfit.show',[$outfit])}}" class="btn btn-outline-dark"> Show </a>
                                         <a href="{{route('outfit.edit',[$outfit])}}" class="btn btn-outline-primary"> Edit </a>
                                     </div> 
                                     <form method="POST" action="{{route('outfit.destroy', [$outfit])}}">
@@ -34,7 +35,7 @@
                                     </form>
                                 </li>
                             @endforeach
-                        </ol>
+                        </ul>
                         {{$outfits->links()}}
                     </div>
                 </div>

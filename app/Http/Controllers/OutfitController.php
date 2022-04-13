@@ -88,7 +88,12 @@ class OutfitController extends Controller
      */
     public function show(Outfit $outfit)
     {
-        //
+        $designers = Designer::all();
+
+        return view('outfit.show', [
+            'outfit' => $outfit,
+            // 'designers' => $designers,
+    ]);
     }
 
     /**

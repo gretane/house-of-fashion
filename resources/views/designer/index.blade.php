@@ -16,7 +16,7 @@
                                     <button type="submit" name="sort" class="btn btn-outline-primary" value="by_surname_za"> By surname(z-a)</button>
                                 </fieldset>
                             </form>
-                            <a href="{{route('designer.index')}}" class="btn btn-outline-primary">Reset</a>
+                            <a href="{{route('designer.index')}}" class="btn btn-outline-dark">Reset</a>
                         </article>
                         <article>
                             <form action="{{route('designer.index')}}" method="GET">
@@ -26,7 +26,7 @@
                                     <button type="submit" name="search" class="btn btn-outline-primary" value="all"> Search </button>
                                 </fieldset>
                             </form>
-                            <a href="{{route('designer.index')}}" class="btn btn-outline-primary">Reset</a>
+                            <a href="{{route('designer.index')}}" class="btn btn-outline-dark">Reset</a>
                         </article>
                     </div>
                     
