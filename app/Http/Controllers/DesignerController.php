@@ -94,6 +94,15 @@ class DesignerController extends Controller
         return redirect()->back()->withErrors($validator);
         }
 
+        // upload photo to server and save link in DB
+
+        $file = $request->file('designer_photo');
+        $extension = $file->getClientOriginalExtension();
+        $name = rand(10000, 99999) . '_' . rand(10000, 99999);
+        $name += '.' . $extension;
+        $destinationPath = public_path() . 'images/designers/';  // asset() goes to file from the 'outside'(the http:..) while public_path() - 'inside'(C:/...)
+        $file->move($destinationPath, $name);
+
         $designer = new Designer;
         $designer->name = $request->designer_name;
         $designer->surname = $request->designer_surname;

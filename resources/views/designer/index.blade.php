@@ -35,12 +35,19 @@
                             @foreach ($designers as $designer)
                                 <li class="designer-index-list"> 
                                     <div class="designer-index-info">
-                                        <b>{{$designer->name}} {{$designer->surname}}</b>
-                                        @if ($designer->designerOutfits->count())
-                                            <p> <small> Works on {{$designer->designerOutfits->count()}} outfit(s). </small> </p>
-                                        @else 
-                                        <p> <small> Currently there are no outfits. </small> </p>
+                                        @if($designer->photo)
+                                        <img src="{{$designer->photo}}" alt="Photo of {{$designer->name}} {{$designer->surname}}.">
+                                        @else
+                                        <img src="{{asset('images/no-image.jpg')}}" alt="Photo of {{$designer->name}} {{$designer->surname}}.">
                                         @endif
+                                        
+                                        <p><b>{{$designer->name}} {{$designer->surname}}</b></p>
+                                        @if ($designer->designerOutfits->count())
+                                            <p> <small> <i>Works on {{$designer->designerOutfits->count()}} outfit(s).</i> </small> </p>
+                                        @else 
+                                            <p> <small><i> Currently there are no outfits. </i> </small> </p>
+                                        @endif
+                                        
                                     </div>
                                     <div class="designer-index-btn">
                                         <a class="btn btn-outline-primary" href="{{route('designer.edit', $designer)}}"> Edit </a> 
