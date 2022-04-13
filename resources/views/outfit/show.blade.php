@@ -22,6 +22,7 @@
                             <p>Designer: {{$outfit->outfitDesigner->name}} {{$outfit->outfitDesigner->surname}} </p>
                         </article>
                         <a href="{{route('outfit.edit',[$outfit])}}" class="btn btn-outline-primary"> Edit </a>
+                        <a href="{{route('outfit.pdf',[$outfit])}}" class="btn btn-outline-primary"> PDF </a>
                     </div>
                 </div>
             </div>

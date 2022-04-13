@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateOutfitRequest;
 use App\Http\Requests\IndexOutfitRequest;
 use App\Models\Designer;
 use Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 class OutfitController extends Controller
@@ -152,5 +153,11 @@ class OutfitController extends Controller
     {
         $outfit->delete();
         return redirect()->route('outfit.index')->with('success_message', 'Deletion succeeded.');  
+    }
+
+    public function pdf(Outfit $outfit)
+    {  
+        $pdf = PDF::loadView('outfit.pdf', ['outfit'=>$outfit]);
+        return $pdf->download($outfit->type . '-'. $outfit->outfitDesigner->surname . '.pdf');
     }
 }
