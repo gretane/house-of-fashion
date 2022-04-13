@@ -10,6 +10,7 @@ use Validator;
 
 class DesignerController extends Controller
 {
+    const RESULTS_PER_PAGE = 9;
     /**
      * Display a listing of the resource.
      *
@@ -20,17 +21,17 @@ class DesignerController extends Controller
         if($request->sort) {
 
             if('by_name_az' == $request->sort){
-                $designers = Designer::orderBy('name')->get(); 
+                $designers = Designer::orderBy('name')->paginate(self::RESULTS_PER_PAGE)->withQueryString();
             }
             if('by_name_za' == $request->sort){
-                $designers = Designer::orderBy('name', 'desc')->get(); 
+                $designers = Designer::orderBy('name', 'desc')->paginate(self::RESULTS_PER_PAGE)->withQueryString();
             }
 
             if('by_surname_az' == $request->sort){
-                $designers = Designer::orderBy('surname')->get(); //sort by surname when taking from DB; orderBy('surname', 'desc') to sort z to a; faster way;
+                $designers = Designer::orderBy('surname')->paginate(self::RESULTS_PER_PAGE)->withQueryString();//sort by surname when taking from DB; orderBy('surname', 'desc') to sort z to a; faster way;
             }
             if('by_surname_za' == $request->sort){
-                $designers = Designer::orderBy('surname', 'desc')->get(); 
+                $designers = Designer::orderBy('surname', 'desc')->paginate(self::RESULTS_PER_PAGE)->withQueryString();
             }
         } else if ($request->search && 'all' == $request->search) {
             
@@ -39,7 +40,7 @@ class DesignerController extends Controller
             if(count($words) == 1) {
                 $designers = Designer::where('name', 'like', '%' . $request->srch . '%')
                 ->orWhere('surname', 'like', '%' . $request->srch . '%')
-                ->get();
+                ->paginate(self::RESULTS_PER_PAGE)->withQueryString();;
             } else {
             
                 $designers = Designer::where(function($query) use ($words) {
@@ -50,11 +51,11 @@ class DesignerController extends Controller
                     $query->orWhere('name', 'like', '%' . $words[1] . '%')
                     ->orWhere('surname', 'like', '%' . $words[1] . '%');
                 })
-                ->get();
+                ->paginate(self::RESULTS_PER_PAGE)->withQueryString();;
             }
         } else {
 
-            $designers = Designer::all();
+            $designers = Designer::paginate(self::RESULTS_PER_PAGE)->withQueryString();;
         }
         // $designers = $designers->sortBy('surname');  //laravel methods; reversed sortByDesc('surname');
        

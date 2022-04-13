@@ -31,11 +31,11 @@
                     </div>
                     
                     <div class="card-body">
-                        <ol>
+                        <ul>
                             @foreach ($designers as $designer)
                                 <li class="designer-index-list"> 
                                     <div class="designer-index-info">
-                                        <b>{{$designer->name}} {{$designer->surname}}</b>
+                                        <b>{{$loop->iteration}}. {{$designer->name}} {{$designer->surname}}</b>
                                         @if ($designer->designerOutfits->count())
                                             <p> <small> Works on {{$designer->designerOutfits->count()}} outfit(s). </small> </p>
                                         @else 
@@ -51,7 +51,8 @@
                                     </div>
                                 </li>
                             @endforeach
-                        </ol>
+                        </ul>
+                        {{$designers->links()}}
                     </div>
                 </div>
             </div>

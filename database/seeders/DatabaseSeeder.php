@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'dressmaker@gmail.com',
             'password' => Hash::make('password'),
         ]);
-        $designersCount = 20;
+        $designersCount = 200;
         foreach(range(1, $designersCount) as $_) {
             DB::table('designers')->insert([
                 'name' => $faker->firstName(),
