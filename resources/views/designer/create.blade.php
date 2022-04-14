@@ -11,8 +11,8 @@
                             <input type="text" id="designer_name" name="designer_name" value="{{old('designer_name')}}">
                             <label for="designer_surname">Surname:</label>
                             <input type="text" id="designer_surname" name="designer_surname" value="{{old('designer_surname')}}">
-                            <label for=designer_photo">Select photo:</label>
-                            <input type="file" id="designer_photo" name="designer_photo"> 
+                            {{-- <label for=designer_photo">Select photo:</label>
+                            <input type="file" id="designer_photo" name="designer_photo">  --}}
                             @csrf
                             <button type="submit">Add</button>
                         </form>
